@@ -1,4 +1,43 @@
 <!DOCTYPE html>
+<?php
+session_start();
+
+if(isset($_POST['submit_pass']) && $_POST['pass'])
+{
+ $pass=$_POST['pass'];
+ if($pass=="fart") //password: fart
+ {
+  $_SESSION['password']=$pass;
+ }
+ else
+ {
+  $error="Incorrect Pssword";
+ }
+}
+
+if(isset($_POST['page_logout']))
+{
+ unset($_SESSION['password']);
+}
+?>
+
+<html>
+
+<head>
+    <title>Password Protected Webpage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <?php
+if($_SESSION['password']=="fart")
+{
+
+ ?>
+<!--        Create Password Protected Webpage Using PHP, HTML And CSS-->
 <html>
 <head>
   <title>Made by luke y</title>
@@ -136,7 +175,21 @@ var ad_idzone = "3154154",
 			checkError(); 
 		}
 	</script>
-  
-  
+  else
+{
+ ?>
+        <form method="post" action="" id="login_form">
+            <h1>LOGIN TO PROCEED</h1>
+            <input type="password" name="pass" placeholder="*******">
+            <input type="submit" name="submit_pass" value="DO SUBMIT">
+            <p>"Password : M"</p>
+            <p>
+                <font style="color:red;"><?php echo $error;?></font>
+            </p>
+        </form>
+        <?php
+}
+?>
+	</div> 
 </body>
 </html>
